@@ -1,0 +1,59 @@
+name: Build invitation image
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+concurrency:
+  group: container-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Image name
+        id: image
+        shell: bash
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: echo "name=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build on CI for the x86_64 Droplet
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: ${{ steps.image.outputs.name }}:sha-${{ github.sha }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test image
+        shell: bash
+        env:
+          IMAGE: ${{ steps.image.outputs.name }}:sha-${{ github.sha }}
+        run: |
+          docker run -d --name invitation-check -p 127.0.0.1:18080:8080 "$IMAGE"
+          trap 'docker logs invitation-check; docker rm -f invitation-check' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18080/ > /dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:18080/ > /dev/null
+          curl -fsS http://127.0.0.1:18080/tao-thiep > /dev/null
+          curl -fsS http://127.0.0.1:18080/assets/bk-official.png > /dev/null
+      - name: Publish tested image
+        env:
+          IMAGE: ${{ steps.image.outputs.name }}:sha-${{ github.sha }}
+        run: |
+          docker push "$IMAGE"
+          echo "Deploy image: \`$IMAGE\`" >> "$GITHUB_STEP_SUMMARY"

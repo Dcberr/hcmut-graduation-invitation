@@ -52,8 +52,10 @@ docker compose ps
 docker compose logs -f invitation
 ```
 
-Mở **http://localhost:8080**. Trên điện thoại cùng mạng Wi-Fi, dùng
-`http://<IP-LAN-của-máy>:8080`. Đổi cổng nếu cần:
+Mở **http://localhost:8080** trên máy chạy Docker. Cổng app chỉ bind vào
+`127.0.0.1`, không truy cập trực tiếp bằng IP LAN hoặc IP public. Nginx chạy
+trực tiếp trên Ubuntu proxy tới `http://127.0.0.1:8080`; điện thoại truy cập
+qua tên miền HTTPS của Nginx. Đổi cổng localhost nếu cần:
 
 ```sh
 APP_PORT=3000 docker compose up -d --build
@@ -75,3 +77,55 @@ Nếu chia sẻ qua Internet, đặt reverse proxy HTTPS hoặc tunnel trỏ t�
 Tính năng nghiêng máy cần HTTPS và quyền cảm biến của trình duyệt; thao tác kéo
 bằng tay vẫn dùng được qua HTTP. Ví dụ tunnel đang trỏ cổng 5173 cần đổi sang 8080.
 Không cần tài khoản hoặc token dịch vụ bên ngoài để chạy container.
+
+## Droplet 512 MB: build bằng GitHub Actions, server chỉ pull
+
+Dùng thư mục `hcmut-invitation` làm **gốc repository GitHub** (Dockerfile,
+package.json và `.github` nằm ngay gốc). Workflow `.github/workflows/container.yml`
+chạy khi push nhánh `main` hoặc chọn Actions → Build invitation image → Run workflow.
+Workflow build `linux/amd64` đúng kiến trúc Droplet, chạy smoke test HTTP,
+rồi push lên GHCR bằng `GITHUB_TOKEN` sẵn có. Không cần lưu SSH key server trong CI.
+Workflow không tự triển khai hoặc thay đổi server.
+
+Sau khi job thành công, lấy image đầy đủ trong Summary, dạng
+`ghcr.io/owner/repo:sha-<full-commit-sha>`. Mỗi commit có tag riêng để rollback.
+Nếu package private, đăng nhập GHCR trên server bằng tài khoản có quyền đọc package
+và personal access token (classic) quyền `read:packages`:
+
+```sh
+docker login ghcr.io -u YOUR_GITHUB_USERNAME
+```
+
+Dán token tại prompt Password, không dùng mật khẩu GitHub. Không lưu token vào code.
+Package public thì không cần đăng nhập để pull.
+
+Trên server, đặt `compose.production.yaml` và `.env.production.example` vào cùng
+thư mục deployment đang dùng. Không cần source code hoặc npm trên server:
+
+```sh
+cp .env.production.example .env.production
+nano .env.production
+# Thay INVITATION_IMAGE bằng image từ Summary của workflow.
+docker compose --env-file .env.production -f compose.production.yaml pull
+docker compose --env-file .env.production -f compose.production.yaml up -d --no-build
+docker compose --env-file .env.production -f compose.production.yaml ps
+curl -I http://127.0.0.1:8080/
+docker stats --no-stream
+```
+
+Dùng cùng thư mục/tên Compose project với bản cũ để thay container hiện có;
+không chạy hai project cùng bind cổng 8080. Nếu bản cũ dùng `-p`, dùng lại đúng `-p`.
+Luôn chỉ rõ `-f compose.production.yaml`; không merge với `compose.yaml` có build.
+
+Cập nhật: đổi INVITATION_IMAGE sang tag mới, chạy lại `pull` và `up -d --no-build`.
+Rollback: đổi về tag commit trước, chạy lại hai lệnh đó. Có gián đoạn ngắn khi
+thay container; đây không phải rolling deployment.
+
+Bản production giới hạn container 320 MB và V8 old-space 192 MB để chừa tài nguyên
+cho Ubuntu/Nginx trên Droplet 512 MB. Old-space không phải tổng RAM Node.js.
+Đây là mức khởi đầu cần theo dõi; nếu container OOM/restart, cân nhắc tăng RAM
+Droplet trước khi nới giới hạn. Build ở CI không giải quyết thiếu RAM lúc phục vụ.
+Không chạy `up --build` hoặc `npm install` trên Droplet này.
+
+Nếu build thủ công từ Mac Apple Silicon, phải dùng `docker buildx build
+--platform linux/amd64 --tag <image> --push .` để tạo image chạy được trên Droplet.
