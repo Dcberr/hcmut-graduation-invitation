@@ -366,3 +366,19 @@ html { min-height:100%; background-color:#040e48; }
 .pull-cord .cord-handle { top:var(--rest-cord); transform:translateY(var(--pull,0px)); transition:none; will-change:transform; }
 .pull-cord.dragging .cord-handle { outline:none; }
 .cord-handle:focus:not(:focus-visible) { outline:none; }
+
+/* Wide-screen celestial stationery; the card remains in front of every orbit. */
+.desktop-edition,.desktop-sky-note { display:none; pointer-events:none; }
+@media(min-width:760px) {
+ .desktop-edition { display:flex; justify-content:space-between; position:fixed; top:28px; left:36px; right:84px; z-index:1; font:400 10px/1.5 'Be Vietnam Pro',sans-serif; letter-spacing:2.5px; color:#a7b5d0; }
+ .desktop-edition span:first-child { color:#e0c38a; }
+ .desktop-edition b { margin:0 12px; font-weight:400; }
+ .desktop-sky-note { display:block; position:fixed; bottom:24px; left:36px; z-index:1; font:italic 18px/1.4 'Cormorant Garamond',Georgia,serif; color:#a7b5d0; }
+ .desktop-sky-note span { color:#d7b976; margin-left:12px; }
+}
+@media(min-width:760px) and (max-height:650px) {
+ .desktop-edition { top:12px; }
+ .desktop-sky-note { display:none; }
+}
+/* Canvas draws both the tracks and planets so they cannot drift apart. */
+.mobile-atmosphere i { display:none; }

@@ -53,6 +53,8 @@ export default function Invitation() {
  const interactiveSpread=settledView===1||settledView===2;
  return <main className={`invitation-site ${size.mobile?'is-mobile':''} ${reading?'is-reading':'is-opening'} ${viewportReady?'viewport-ready':'viewport-pending'}`} style={{'--touch-target':`${44/size.scale}px`} as CSSProperties}>
  <CosmicBackground/>
+ <div className="desktop-edition" aria-hidden="true"><span>HCMUT <b>✦</b> GRADUATION {invitation.year}</span><span>MỘT HÀNH TRÌNH · NGÀN KỶ NIỆM</span></div>
+ <div className="desktop-sky-note" aria-hidden="true">Mỗi cuộc gặp gỡ, một vì sao <span>✦</span></div>
  {!viewportReady&&<InitialEnvelope/>}
  {size.mobile&&viewportReady&&<><div className="mobile-atmosphere" aria-hidden="true"><i/><i/><i/><span>✦</span><span>✧</span><span>✦</span></div><header className="mobile-intro"><div className="mobile-edition"><span>HCMUT</span><span>GRADUATION · {invitation.year}</span></div><p className="mobile-eyebrow">{reading?`CHƯƠNG 0${state.view+1} / 04`:'MỘT CỘT MỐC · MỘT LỜI MỜI'}</p><h1>{reading?chapterTitles[state.view]:<>Gửi <em>{guest}</em>,<br/>một niềm vui đang chờ bạn.</>}</h1><div className="mobile-intro-rule"><span/>✦<span/></div></header></>}
  <div className="scene-space" inert={!viewportReady} aria-hidden={!viewportReady} style={{visibility:viewportReady?'visible':'hidden',width:(size.mobile?520:1200)*size.scale,height:(size.mobile?720:800)*size.scale}}><div ref={sceneRef} className={`scene phase-${state.phase} view-${state.view} top-${topLeaf} ${state.busy?'is-animating':''}`} style={{width:size.mobile?520:1200,transform:`scale(${size.scale})`}}>
