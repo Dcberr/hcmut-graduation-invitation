@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+@import './fonts.css';
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '../vendor/shadcn-tailwind-4.13.0.css';
+:root{color-scheme:dark;--gold:#f3cf65;--ivory:#fff5df}*{box-sizing:border-box}body{margin:0;background:#040e48;color:var(--ivory);font-family:'Be Vietnam Pro',sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible{outline:3px solid white;outline-offset:6px}.invitation-site{min-height:100svh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#10226a 0,#071650 52%,#020b38 100%);overflow:hidden}.scene-space{position:relative}.scene{height:800px;position:relative;transform-origin:0 0;perspective:2200px}.book-layer{position:absolute;inset:0;z-index:2;transform:translateY(20px) scale(.54);transition:none}.phase-extract .book-layer{transform:translateY(-140px) scale(.54)}.phase-settle .book-layer,.phase-reading .book-layer{transform:none}.book-position{position:absolute;top:30px;left:120px;width:960px;height:670px;perspective:2400px}.book{width:960px;height:670px;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.65,0,.25,1)}.view-0 .book{transform:translateX(-240px)}.view-3 .book{transform:translateX(240px)}.leaf{position:absolute;width:480px;height:670px;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.65,0,.25,1)}.leaf-left{left:0;transform-origin:right center;z-index:4}.leaf-right{left:480px;transform-origin:left center;z-index:3}.view-0 .leaf-left{transform:rotateY(180deg)}.view-3 .leaf-right{transform:rotateY(-180deg);z-index:5}.face{position:absolute;inset:0;backface-visibility:hidden;transform:translateZ(.3px)}.face-back{transform:rotateY(180deg) translateZ(.3px)}.paper{position:relative;width:480px;height:670px;background:linear-gradient(120deg,#102378,#0c1b67 70%,#112471);padding:25px 34px 65px;text-align:center;overflow:hidden;box-shadow:0 14px 30px #0005;color:var(--ivory)}.paper-border{position:absolute;inset:11px;border:1.5px solid var(--gold);pointer-events:none}.identity{text-transform:uppercase;font-size:10px;line-height:1.6;margin-bottom:10px}.identity .emblem{width:52px;height:57px;margin:0 auto 7px}.identity strong{font-size:13px}.identity p{margin:0}.emblem{object-fit:contain}.cover-title h1{font-family:'Cormorant Garamond',serif;font-size:43px;letter-spacing:6px;line-height:1.1;font-weight:500;margin:12px 0 4px}.cover-title p{font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:4px;margin:0}.tiny-rule{width:100px;height:1px;background:var(--gold);margin:16px auto}.eyebrow{font-size:11px;letter-spacing:1.5px;margin:5px 0}.calligraphy{font-family:Allura,'Cormorant Garamond',cursive;font-size:45px;color:var(--gold);line-height:1.25;margin:0}.dotted-rule{width:220px;border-top:1px dotted var(--gold);margin:10px auto 12px}.graduate-block h2{font:600 25px 'Cormorant Garamond',serif;letter-spacing:3px;color:var(--gold);margin:6px 0}.ornament{display:flex;align-items:center;justify-content:center;gap:13px;margin:13px auto;color:var(--gold)}.ornament span{width:70px;height:1px;background:var(--gold)}.ornament svg{width:26px;height:22px}.cover-venue{font-size:14px;line-height:1.6}.cover-venue p{margin:0}.ceremony-date{font-size:18px}.welcome{font:italic 22px 'Cormorant Garamond',serif;margin:9px 0}.ribbons{position:absolute;bottom:-14px;height:74px;left:-5px;right:-5px;overflow:hidden;pointer-events:none}.ribbons i{position:absolute;left:-8%;width:116%;height:58px;background:linear-gradient(#e90b13,#97030c);border-top:6px solid #ffd76c;transform:rotate(8deg);top:24px;box-shadow:0 -5px #ef1b21}.ribbons i+ i{transform:rotate(-8deg);top:26px}.page-heading{font:italic 600 33px 'Cormorant Garamond',serif;margin:5px 0}.portrait-composition{height:330px;position:relative;margin:18px 20px 12px}.portrait-frame{height:100%;border:2px solid var(--gold);background:linear-gradient(130deg,#345ca0,#244587)}.portrait-frame>img{width:100%;height:100%;object-fit:cover}.portrait-placeholder{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;font-size:13px}.sash{position:absolute;right:-8px;top:-10px;width:75px;height:350px;background:linear-gradient(90deg,#02a4be,#4ad8e9,#009cbb);clip-path:polygon(0 0,100% 0,100% 90%,50% 100%,0 90%);filter:drop-shadow(0 5px 4px #0006)}.sash-pattern{height:210px;background:conic-gradient(from 30deg,#d9f7fc 0 60deg,#84ccde 60deg 120deg,#fff 120deg 180deg,#bceaf0 180deg 240deg,#59bed4 240deg 300deg,#e6faff 300deg);background-size:38px 44px}.sash .emblem{width:42px;height:50px;margin:27px auto}.faculty{font-size:15px;margin:0}.printed-page{position:absolute;bottom:64px;left:0;right:0;font-size:13px}.paper-details .identity{margin-bottom:15px}.paper-details .identity .emblem{height:48px}.detail-row{display:flex;text-align:left;align-items:center;gap:22px;padding:18px 4px;border-bottom:1px solid #e9c86088}.detail-row:last-child{border:0}.detail-row>svg{color:var(--gold);width:33px;height:33px;flex-shrink:0}.detail-row>div{border-left:1px solid var(--gold);padding-left:19px}.detail-row h3{color:var(--gold);font-size:15px;letter-spacing:1px;margin:0 0 5px}.detail-row p{font-size:16px;margin:2px 0}.detail-row small{font-size:12px}.gold-button{border:1.5px solid var(--gold)!important;background:transparent!important;color:var(--ivory)!important;border-radius:40px!important;padding:10px 30px!important;margin-top:19px;font:italic 23px 'Cormorant Garamond',serif!important;height:45px!important}.paper-thanks h2{font:italic 600 54px 'Cormorant Garamond',serif;margin:24px 0 8px}.thanks-subtitle{font:italic 600 29px/1.2 'Cormorant Garamond',serif;color:var(--gold);margin:10px 0 25px}.thanks-message{font-size:17px;line-height:1.8;margin:22px 0}.closing-note{font-size:15px;margin-top:18px}.envelope-part{position:absolute;left:250px;top:180px;width:700px;transition:transform 800ms cubic-bezier(.22,.61,.36,1),opacity 500ms}.envelope-back{height:420px;background:#061c43;box-shadow:0 20px 45px #0008;z-index:1;border:1px solid #6682a4}.envelope-front{height:420px;z-index:3;background:linear-gradient(145deg,#11305d,#061c42);clip-path:polygon(0 0,50% 49%,100% 0,100% 100%,0 100%)}.envelope-flap{height:220px;background:linear-gradient(150deg,#174473,#071b3d);clip-path:polygon(0 0,100% 0,98% 24%,94% 36%,50% 100%,6% 36%,2% 24%);transform-origin:top;z-index:4;border-top:2px solid var(--gold);filter:drop-shadow(0 3px 1px #f9cf65)}.envelope-copy{position:absolute;top:245px;left:0;right:0;text-align:center;color:var(--gold)}.envelope-copy p{font:500 49px 'Cormorant Garamond',serif;letter-spacing:4px;margin:0 0 4px}.envelope-copy span{font-size:15px;letter-spacing:5px}.envelope-wave{position:absolute;bottom:-100px;left:-8%;width:120%;height:170px;border:9px solid #edc45d;border-radius:50%;transform:rotate(-7deg);box-shadow:0 -2px #fff2ad,0 -12px 0 -10px #fbe5a0}.seal{width:112px;height:112px;left:544px;top:344px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b5,#dca43b 65%,#ffdf78 69%,#9c6716 76%);z-index:5;display:grid;place-items:center;box-shadow:0 6px 10px #0008}.seal .emblem{width:70px;height:76px}.envelope-hit{position:absolute;left:250px;top:180px;width:700px;height:420px;z-index:6;border:0;background:transparent}.open-invitation{position:absolute;top:640px;left:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;background:none;border:0;color:var(--ivory);font-size:21px;transition:opacity 200ms}.open-invitation svg{color:var(--gold);width:44px;height:44px}.open-invitation:disabled{opacity:0;pointer-events:none}.phase-flap .envelope-flap,.phase-extract .envelope-flap{transform:translateY(55px) rotateX(180deg);z-index:1}.phase-flap .envelope-front,.phase-flap .envelope-back,.phase-extract .envelope-front,.phase-extract .envelope-back{transform:translateY(55px)}.scene:not(.phase-sealed) .seal{opacity:0;transform:translateY(-15px)}.phase-settle .envelope-part,.phase-reading .envelope-part{transform:translateY(650px);opacity:0;pointer-events:none}.page-controls{position:absolute;top:735px;left:0;right:0;display:flex;justify-content:center;gap:30px;align-items:center;opacity:0;transition:opacity 400ms}.page-controls.shown{opacity:1}.page-controls button{width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);background:none}.page-controls button:disabled{opacity:.2}.page-controls span{font-size:20px;font-weight:600;min-width:130px;text-align:center}.replay-button{position:fixed;right:22px;bottom:14px;display:flex;gap:8px;align-items:center;border:0;background:none;color:#c7d1eb;font-size:12px}.mobile-book{position:absolute;left:20px;top:30px;width:480px;height:670px;overflow:hidden}.mobile-track{display:flex;transition:transform 900ms cubic-bezier(.65,0,.25,1)}.mobile-track>div{flex:0 0 480px}.is-mobile .envelope-part,.is-mobile .envelope-hit{left:-90px;scale:.65;transform-origin:center}.is-mobile .seal{left:204px}.is-mobile .book-layer{transform:translateY(20px) scale(.42)}.is-mobile .phase-extract .book-layer{transform:translateY(-120px) scale(.42)}.is-mobile .phase-settle .book-layer,.is-mobile .phase-reading .book-layer{transform:none}.map-dialog{background:#102163!important;color:var(--ivory)!important;border:1px solid var(--gold)!important;padding:30px!important;max-width:470px!important}.map-dialog p{font-size:14px;line-height:1.7;color:#d4dcf1}.map-illustration{display:grid;place-items:center;height:150px;background:repeating-linear-gradient(35deg,#ffffff03 0 30px,#ffffff0a 30px 32px);color:var(--gold);margin:10px 0}.map-link{display:block;text-align:center;padding:12px;border:1px solid var(--gold);border-radius:8px;color:var(--gold)}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Full-scene animation containers must not intercept the controls below them. */
+.book-layer { pointer-events: none; }
+.phase-reading .face:not([inert]), .phase-reading .mobile-track > div:not([inert]) { pointer-events: auto; }
+.book-layer[inert] *, .face[inert], .mobile-track > div[inert] { pointer-events: none !important; }
+.envelope-part { pointer-events: none; }
+.page-controls { z-index: 10; pointer-events: none; }
+.page-controls.shown { pointer-events: auto; }
+.open-invitation { z-index: 10; }
+.phase-reading .envelope-part { visibility: hidden; }
+.face { -webkit-backface-visibility: hidden; }
+.envelope-flap { height:225px; background:none; clip-path:none; border:0; filter:none; }
+.envelope-flap svg { display:block; overflow:visible; filter:drop-shadow(0 5px 5px #0006); }
+.envelope-copy { top:278px; }
+.envelope-copy p { font-size:44px; line-height:1.1; margin-bottom:9px; }
+.envelope-wave { bottom:-119px; }
+/* Reserve the footer ribbon's area rather than covering flowing text. */
+.paper-cover .identity { margin-bottom:6px; }
+.paper-cover .cover-title h1 { margin-top:6px; }
+.paper-cover .tiny-rule { margin:12px auto; }
+.paper-cover .dotted-rule { margin:7px auto 9px; }
+.paper-cover .calligraphy { font-size:42px; }
+.paper-cover .ornament { margin:8px auto; }
+.paper-cover .welcome { margin-top:6px; font-size:20px; }
+
+/* Keep compositing and the turning leaf stable in both directions. */
+.scene { perspective:none; }
+.book-layer { transform:translate3d(0,20px,0) scale(.54); will-change:transform; }
+.phase-settle .book-layer,.phase-reading .book-layer { transform:translate3d(0,0,0) scale(1); }
+.book,.leaf { will-change:transform; -webkit-transform-style:preserve-3d; }
+.book { transform:translate3d(0,0,0); }
+.leaf { transform:rotateY(0deg); }
+.top-left .leaf-left { z-index:6; }
+.top-left .leaf-right { z-index:3; }
+.top-right .leaf-left { z-index:3; }
+.top-right .leaf-right { z-index:6; }
+.is-animating .book-layer * { pointer-events:none!important; }
+.paper-details .identity { margin-bottom:8px; }
+.paper-details .ornament { margin:9px auto; }
+.paper-details .detail-row { padding:13px 4px; }
+.paper-details .map-trigger { position:absolute; top:530px; left:50%; transform:translateX(-50%); margin:0; height:42px!important; z-index:1; white-space:nowrap; }
+.paper-details .printed-page { bottom:66px; pointer-events:none; }
+.paper-details .ribbons { height:64px; }
+.emblem { flex-shrink:0; }
+/* A closed outer leaf used to occupy exactly the same 3D plane as the
+   underlying inner page. z-index does not resolve coplanar surfaces in a
+   preserve-3d scene. Keep the moving sheet physically above the other one. */
+.book-position { perspective:2400px; -webkit-perspective:2400px; }
+.leaf { z-index:auto!important; }
+.top-left .leaf-left { transform:translateZ(4px) rotateY(0deg); }
+.top-left .leaf-right { transform:translateZ(0px) rotateY(0deg); }
+.top-right .leaf-left { transform:translateZ(0px) rotateY(0deg); }
+.top-right .leaf-right { transform:translateZ(4px) rotateY(0deg); }
+.view-0.top-left .leaf-left { transform:translateZ(4px) rotateY(180deg); }
+.view-3.top-right .leaf-right { transform:translateZ(4px) rotateY(-180deg); }
+.face { transform:translateZ(0.5px); will-change:transform; }
+.face-back { transform:rotateY(180deg) translateZ(0.5px); }
+
+/* The footer is one continuous drawing, anchored to the paper edge.
+   Inner pages show the two halves of the same 960px artwork. */
+.paper .ribbons { left:0; right:0; bottom:0; height:56px; overflow:hidden; z-index:1; }
+.ribbons svg { display:block; width:100%; height:100%; }
+.paper-portrait .ribbons svg,.paper-details .ribbons svg { width:200%; max-width:none; }
+.paper-details .ribbons svg { margin-left:-100%; }
+.paper-border { border-bottom:0; bottom:0; }
+
+/* Opening is driven by one Web Animations timeline, independent of page turns. */
+.phase-flap .envelope-part,.phase-flap .book-layer { transition:none!important; }
+.scene .envelope-flap { transform-origin:50% 0; }
+.is-mobile .scene .envelope-flap { transform-origin:50% 0; }
+.phase-reading .book-layer,.is-mobile .phase-reading .book-layer { transform:translate3d(0,0,0) scale(1) rotateZ(0deg); }
+.phase-sealed .book-layer { transition:none; }
+.phase-sealed .envelope-part { transition:none; }
+.opening-shadow { position:absolute; left:50%; top:585px; width:640px; height:50px; border-radius:50%; background:radial-gradient(ellipse,#0009,transparent 70%); transform:translateX(-50%); opacity:.35; pointer-events:none; }
+.is-mobile .opening-shadow { width:430px; top:520px; }
+.phase-reading .opening-shadow { opacity:0; }
+.page-controls { transition:opacity 450ms ease,translate 600ms cubic-bezier(.2,.7,.3,1); translate:0 8px; }
+.page-controls.shown { translate:0 0; }
+
+/* WAAPI exclusively owns the opening transform. A CSS transition here would
+   start a second zoom as the finished animation releases to the reading state. */
+.scene .book-layer { transition:none!important; }
+
+/* Personal names and full faculty names need room within the fixed paper. */
+.paper .graduate-name { font-size:36px; line-height:1.45; overflow-wrap:anywhere; }
+.paper .faculty { font-size:14px; line-height:1.5; }
+
+/* Keep all Vietnamese body copy on the same locally served font. */
+body { font-family:'Be Vietnam Pro',Arial,sans-serif; font-weight:400; }
+.thanks-message,.closing-note,.faculty,.cover-venue,.detail-row,.identity,.eyebrow,.portrait-placeholder,.page-controls,.open-invitation,.map-dialog { font-family:'Be Vietnam Pro',Arial,sans-serif; }
+.thanks-message { font-weight:400; font-style:normal; line-height:1.85; letter-spacing:0; }
+
+/* Match the final opening keyframe exactly when WAAPI releases ownership. */
+.phase-reading .book-layer,.is-mobile .phase-reading .book-layer { transform:translate3d(0,0,0) scale(1) rotateZ(360deg); }
+
+/* Perspective for the whole invitation's vertical-axis entrance turn. */
+.scene { perspective:2200px; perspective-origin:50% 365px; }
+.phase-reading .book-layer,.is-mobile .phase-reading .book-layer { transform:translate3d(0,0,0) scale(1) rotateY(-360deg); }
+
+/* Phone composition: width-led sizing, safe-area spacing and actual touch targets. */
+@media(max-width:759px) {
+ .invitation-site.is-mobile { min-height:100svh; flex-direction:column; justify-content:center; padding:12px 0 max(24px,env(safe-area-inset-bottom)); overflow-x:clip; overflow-y:visible; }
+ .is-mobile .scene-space { flex-shrink:0; }
+ .is-mobile .envelope-part,.is-mobile .envelope-hit { transform-origin:50% 0; }
+ .is-mobile .seal { top:286px; }
+ .is-mobile .phase-sealed .book-layer { transform:translate3d(0,-60px,0) scale(.34) rotateY(0deg); }
+ .is-mobile .open-invitation { top:510px; font-size:24px; gap:14px; min-height:var(--touch-target); }
+ .is-mobile .open-invitation svg { width:48px; height:48px; }
+ .is-mobile .opening-shadow { top:445px; }
+ .is-mobile .mobile-book { touch-action:pan-y pinch-zoom; }
+ .is-mobile .page-controls { top:715px; gap:36px; }
+ .is-mobile .page-controls button { width:var(--touch-target); height:var(--touch-target); min-width:60px; min-height:60px; }
+ .is-mobile .page-controls span { font-size:24px; }
+ .swipe-hint { position:absolute; top:787px; left:0; width:100%; text-align:center; color:#b8c6e5; font-size:16px; margin:0; pointer-events:none; }
+ .is-mobile .replay-button { position:static; min-height:44px; font-size:13px; margin:24px auto 0; padding:8px 18px; }
+ .is-mobile .thanks-message { font-size:20px; line-height:1.65; margin:20px 0; }
+ .is-mobile .closing-note { font-size:17px; }
+ .is-mobile .faculty { font-size:17px; line-height:1.45; }
+ .is-mobile .cover-venue { font-size:17px; line-height:1.45; }
+ .is-mobile .detail-row { padding:10px 4px; gap:16px; }
+ .is-mobile .detail-row p { font-size:18px; line-height:1.45; }
+ .is-mobile .detail-row small { font-size:15px; line-height:1.5; }
+ .is-mobile .detail-row h3 { font-size:17px; }
+ .is-mobile .paper-details .map-trigger { top:514px; height:var(--touch-target)!important; min-height:56px; max-width:380px; }
+ .map-dialog { width:calc(100vw - 32px)!important; max-height:calc(100svh - 48px); overflow-y:auto; padding:24px!important; }
+ .map-link { min-height:48px; }
+}
+
+/* SSR cannot know the viewport: hold only the scene until the first layout
+   measurement. Avoid a desktop-sized box influencing mobile overflow too. */
+.invitation-site.viewport-pending { height:100svh; min-height:100svh; overflow:hidden; }
+.viewport-pending .scene-space { position:absolute; visibility:hidden; pointer-events:none; }
+
+.guest-builder { max-width:1120px; margin:auto; padding:48px 24px 80px; }
+.guest-builder header { max-width:720px; margin-bottom:36px; }
+.guest-builder a { color:var(--gold); text-decoration:none; }
+.builder-kicker { color:var(--gold); font-size:12px; letter-spacing:3px; margin-top:40px; }
+.guest-builder h1 { font:500 54px/1.1 'Cormorant Garamond',serif; margin:16px 0; }
+.guest-builder p { line-height:1.7; color:#ced8f0; }
+.builder-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.builder-grid form,.builder-results { background:#112160; border:1px solid #edcd6b44; border-radius:16px; padding:28px; min-width:0; }
+.guest-builder h2 { font-size:20px; margin:0 0 24px; }
+.guest-builder label { display:block; margin:20px 0 8px; font-size:14px; }
+.guest-builder input,.guest-builder textarea { width:100%; border:1px solid #7280ae; border-radius:8px; background:#070f39; color:white; padding:12px; font:400 16px/1.5 'Be Vietnam Pro',sans-serif; }
+.guest-builder textarea { resize:vertical; }
+.guest-builder small { display:block; color:#b1bfdf; line-height:1.6; margin-top:7px; font-size:12px; }
+.guest-builder button { background:var(--gold); color:#101d4b; border:0; border-radius:8px; padding:12px 18px; min-height:44px; font:500 14px 'Be Vietnam Pro',sans-serif; margin-top:16px; }
+.guest-builder .builder-note { font-size:12px; margin-top:20px; }
+.builder-results ul { list-style:none; padding:0; max-height:420px; overflow-y:auto; }
+.builder-results li { border-bottom:1px solid #ffffff22; padding:14px 0; overflow-wrap:anywhere; }
+.builder-results li div { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; }
+.builder-results li button { margin:8px 0 0; background:transparent; border:1px solid #e9cf7c; color:var(--gold); }
+.builder-error { color:#ffb4b4!important; }
+.builder-empty { padding:28px 0; }
+@media(max-width:759px) { .builder-grid { grid-template-columns:1fr; } .guest-builder { padding:24px 16px 50px; } .guest-builder h1 { font-size:40px; } .builder-grid form,.builder-results { padding:20px; } }
+/* Phone art direction: an illuminated keepsake and a four-chapter journey. */
+@media(max-width:759px) {
+ .invitation-site.is-mobile { position:relative; isolation:isolate; justify-content:flex-start; padding-top:max(22px,env(safe-area-inset-top)); background:#050e31; }
+ .mobile-atmosphere { position:absolute; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+ .mobile-atmosphere i { position:absolute; width:480px; height:480px; border:1px solid #e4c66a14; border-radius:50%; top:80px; left:50%; transform:translateX(-50%); }
+ .mobile-atmosphere i:nth-child(2) { width:540px; height:540px; top:50px; }
+ .mobile-atmosphere i:nth-child(3) { width:620px; height:620px; top:10px; }
+ .mobile-atmosphere span { position:absolute; top:24%; left:9%; color:#edcf7d88; font-size:17px; animation:star-breathe 5s ease-in-out infinite alternate; }
+ .mobile-atmosphere span:nth-last-child(2) { left:86%; top:40%; animation-delay:-2s; font-size:25px; }
+ .mobile-atmosphere span:last-child { left:15%; top:72%; animation-delay:-3s; font-size:11px; }
+ .mobile-intro { width:calc(100% - 44px); max-width:480px; text-align:center; min-height:152px; position:relative; z-index:1; }
+ .mobile-edition { display:flex; align-items:center; justify-content:space-between; font-size:9px; letter-spacing:2px; color:#afbedc; margin-bottom:23px; }
+ .mobile-edition span:first-child { color:#f2d38a; letter-spacing:3px; font-weight:600; }
+ .mobile-eyebrow { font-size:8px; letter-spacing:2.5px; color:#b9a778; margin:0 0 10px; }
+ .mobile-intro h1 { font:500 29px/1.2 'Cormorant Garamond',Georgia,serif; margin:0 auto; max-width:340px; text-wrap:balance; }
+ .mobile-intro h1 em { color:#f4d89b; font-weight:500; }
+ .mobile-intro-rule { display:flex; align-items:center; justify-content:center; gap:12px; color:#cda95c; font-size:10px; margin:16px 0 0; }
+ .mobile-intro-rule span { width:35px; height:1px; background:linear-gradient(90deg,transparent,#cda95c88,transparent); }
+ .is-mobile .scene-space { position:relative; z-index:1; }
+ .is-mobile .mobile-book { border-radius:8px; box-shadow:0 25px 45px #0005; perspective:1800px; }
+ .is-mobile .mobile-track { align-items:flex-start; }
+ .mobile-sheet { transform:scale(.94) rotateY(5deg); opacity:.55; transition:transform 900ms cubic-bezier(.22,.61,.36,1),opacity 700ms ease; transform-origin:center; }
+ .mobile-sheet.active { transform:scale(1) rotateY(0deg); opacity:1; }
+ .is-mobile .paper { border-radius:7px; background:radial-gradient(ellipse at 20% 5%,#263e93aa,transparent 65%),linear-gradient(145deg,#142771,#0b174e); }
+ .is-mobile .paper-border { border-color:#d5b770; opacity:.8; border-radius:3px 3px 0 0; }
+ .is-mobile .page-controls,.is-mobile .swipe-hint { display:none; }
+ .is-mobile .envelope-front { background:linear-gradient(145deg,#1c426a,#071c37 70%); }
+ .is-mobile .seal { box-shadow:0 6px 12px #0008,0 0 35px #e8b95822; }
+ .is-mobile .open-invitation { top:510px; }
+ .is-mobile .open-invitation span { border:1px solid #e8ce8a66; border-radius:40px; padding:16px 28px; font-size:21px; background:#0b1a3a99; letter-spacing:.5px; }
+ .is-mobile .open-invitation svg { height:32px; opacity:.8; }
+ .mobile-journey { position:relative; z-index:2; width:calc(100% - 40px); max-width:460px; margin:0 auto; }
+ .journey-tabs { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:18px; }
+ .journey-tabs button { display:flex; flex-direction:column; align-items:center; gap:6px; min-height:54px; padding:10px 2px; border:0; border-top:2px solid #ffffff1c; background:none; color:#93a3c5; font-size:10px; transition:color .3s,border-color .3s; }
+ .journey-tabs button span { font-size:10px; letter-spacing:2px; }
+ .journey-tabs button[aria-current] { border-color:#f0ce83; color:#f0ce83; }
+ .journey-actions { display:flex; gap:10px; }
+ .journey-actions button { display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid #d8c58b55; border-radius:14px; min-width:48px; min-height:48px; color:#f1d79d; background:#132341; }
+ .journey-actions .journey-next { flex:1; background:linear-gradient(115deg,#f4dda2,#d8b667); color:#102046; font:500 13px 'Be Vietnam Pro',sans-serif; }
+ .journey-actions button:disabled { opacity:.35; }
+ .journey-hint { text-align:center; font-size:10px; color:#8192b6; margin:14px 0 0; }
+ .mobile-event-stamp { text-align:center; padding:0 0 20px; margin-top:-54px; }
+ .mobile-event-stamp span { display:block; font-size:8px; letter-spacing:3px; color:#b8a57f; }
+ .mobile-event-stamp strong { display:block; font:500 30px 'Cormorant Garamond',serif; color:#e9d49e; margin:6px 0; }
+ .mobile-event-stamp p { margin:0; font-size:11px; color:#9cabca; }
+ .is-mobile .replay-button { margin-top:14px; color:#8c9bb8; font-size:11px; }
+ @keyframes star-breathe { from { opacity:.3; transform:scale(.85); } to { opacity:.9; transform:scale(1.1); } }
+}
+
+/* A real entrance view in server HTML, not a blank hydration gate. */
+.initial-invitation { width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 20px; text-align:center; }
+.initial-kicker { color:#d3b979; letter-spacing:2px; font-size:10px; }
+.initial-invitation h1 { font:400 clamp(25px,5vw,36px)/1.3 Georgia,serif; margin:10px 0 38px; color:#fff5df; }
+.initial-envelope { position:relative; width:min(82vw,700px); aspect-ratio:5/3; background:linear-gradient(145deg,#1c426a,#071c37 70%); box-shadow:0 20px 50px #0006; overflow:hidden; }
+.initial-flap { position:absolute; top:0; left:0; width:100%; height:54%; clip-path:polygon(0 0,100% 0,98% 24%,94% 36%,50% 100%,6% 36%,2% 24%); background:linear-gradient(145deg,#274c73,#102843); border-top:2px solid #f3cf65; }
+.initial-seal { position:absolute; top:38%; left:42%; width:16%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff3b5,#dca43b 65%,#ffdf78 69%,#9c6716 76%); display:grid; place-items:center; box-shadow:0 5px 10px #0008; }
+.initial-seal img { width:65%; height:70%; object-fit:contain; }
+.initial-copy { position:absolute; top:67%; width:100%; color:#f3cf65; display:flex; align-items:center; flex-direction:column; gap:5px; }
+.initial-copy strong { font:400 clamp(22px,5.5vw,43px) Georgia,serif; letter-spacing:3px; }
+.initial-copy span { font-size:clamp(8px,2vw,14px); letter-spacing:3px; }
+.initial-gold-line { position:absolute; width:120%; height:25%; bottom:-19%; left:-10%; border-top:4px solid #edc45d; border-radius:50%; transform:rotate(-6deg); }
+.initial-status { display:flex; align-items:center; gap:9px; color:#bdc9e2; font:13px Arial,sans-serif; margin-top:30px; }
+.initial-status span { width:6px; height:6px; border-radius:50%; background:#edc45d; }
+
+/* Match the document canvas, safe areas and browser tint on phones.
+   This also applies before hydration and when iOS reveals the canvas on scroll. */
+html { min-height:100%; background-color:#040e48; }
+@media(max-width:759px) {
+ html,body { background:#050e31; }
+ body { min-height:100svh; }
+ .invitation-site,.invitation-site.viewport-pending,.invitation-site.is-mobile {
+   background-color:#050e31;
+   background-image:none;
+   background-repeat:no-repeat;
+ }
+}
+
+/* Fit the phone composition inside the visible viewport, including browser UI. */
+@media(max-width:759px) {
+ .invitation-site.is-mobile { padding-top:max(8px,env(safe-area-inset-top)); padding-bottom:max(10px,env(safe-area-inset-bottom)); min-height:100svh; }
+ .is-mobile .mobile-intro { min-height:0; height:72px; width:calc(100% - 32px); flex-shrink:0; }
+ .is-mobile .mobile-edition { font-size:8px; margin-bottom:8px; letter-spacing:1.6px; }
+ .is-mobile .mobile-eyebrow { font-size:8px; letter-spacing:1.5px; margin-bottom:5px; }
+ .is-mobile .mobile-intro h1 { font-size:21px; line-height:1.1; max-width:100%; }
+ .is-mobile.is-reading .mobile-intro h1 { font-size:19px; }
+ .is-mobile .mobile-intro-rule { display:none; }
+ .is-mobile .mobile-journey { width:calc(100% - 32px); max-width:430px; flex-shrink:0; }
+ .is-mobile .journey-tabs { margin:0 0 8px; gap:6px; }
+ .is-mobile .journey-tabs button { min-height:44px; padding:6px 2px; gap:4px; }
+ .is-mobile .journey-actions button { min-height:44px; border-radius:12px; }
+ .is-mobile .journey-hint { display:none; }
+ .is-mobile .replay-button { margin:2px auto 0; min-height:36px; padding:6px 12px; }
+ .is-mobile .scene-space { margin:0 auto; }
+ .is-mobile .mobile-event-stamp { margin-top:-30px; padding-bottom:0; }
+ .is-mobile .mobile-event-stamp strong { font-size:25px; margin:4px 0; }
+}
+
+/* Transparent atmosphere preserves the uninterrupted navy canvas. */
+.invitation-site { position:relative; isolation:isolate; }
+.cosmic-background { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+.invitation-site>.scene-space { z-index:1; }
+.initial-invitation { position:relative; z-index:1; }
+.cosmic-toggle { position:fixed; right:10px; top:max(10px,env(safe-area-inset-top)); z-index:12; width:44px; height:44px; display:grid; place-items:center; color:#c9b88d; background:#050e3177; border:1px solid #c9b88d33; border-radius:50%; }
+@media(max-width:759px) {
+ .cosmic-toggle { top:auto; bottom:max(8px,env(safe-area-inset-bottom)); right:8px; }
+ /* Replace the old independently animated stars with the pausable canvas. */
+ .mobile-atmosphere>span { display:none; }
+}
+
+.cosmic-hint { display:block; font-size:10px; color:#8d9ab7; margin-top:12px; letter-spacing:.3px; }
+@media(prefers-reduced-motion:reduce) { .cosmic-hint { display:none; } }
+
+/* Pull gesture is confined to the handle, leaving normal scrolling available. */
+.pull-cord { position:absolute; left:50%; top:598px; width:var(--handle-size); transform:translateX(-50%); z-index:8; --rest-cord:20px; }
+.cord-anchor { position:absolute; top:-5px; left:calc(50% - 5px); width:10px; height:10px; border-radius:50%; background:#f7da8c; box-shadow:0 0 0 3px #9a701c; }
+.cord-line { position:absolute; top:0; left:calc(50% - 2px); width:4px; height:calc(var(--rest-cord) + var(--pull)); background:repeating-linear-gradient(35deg,#9f731d 0 2px,#ffe6a1 2px 4px); border-radius:4px; transition:height 350ms cubic-bezier(.2,.8,.3,1); }
+.cord-handle { position:absolute; top:calc(var(--rest-cord) + var(--pull)); left:0; width:var(--handle-size); height:var(--handle-size); border:3px solid #ebc76b; border-radius:50%; color:#f4d686; display:grid; place-items:center; background:#101e3f; box-shadow:0 5px 15px #0005,inset 0 0 0 3px #715523; touch-action:none; user-select:none; -webkit-user-select:none; cursor:grab; transition:top 350ms cubic-bezier(.2,.8,.3,1),background 200ms; }
+.dragging .cord-handle { cursor:grabbing; transition:background 200ms; }
+.dragging .cord-line { transition:none; }
+.ready .cord-handle { background:#69501e; box-shadow:0 0 24px #f3cf6544; }
+.cord-progress { position:absolute; inset:-6px; width:calc(100% + 12px); height:calc(100% + 12px); transform:rotate(-90deg); pointer-events:none; color:#fff0bd; }
+.cord-tassel { position:absolute; top:calc(100% + 3px); width:14px; height:18px; background:repeating-linear-gradient(90deg,#a87b24 0 2px,#f3d18a 2px 4px); clip-path:polygon(30% 0,70% 0,100% 100%,0 100%); }
+.pull-instructions { position:absolute; top:724px; left:0; width:100%; text-align:center; pointer-events:none; transition:opacity 180ms ease; }
+.pull-instructions strong { display:block; font-size:20px; color:#f0d48e; font-weight:500; }
+.pull-instructions span { display:block; margin-top:8px; font-size:13px; color:#a9b7d1; }
+@media(max-width:759px) {
+ .pull-cord { left:50%; top:451px; --rest-cord:18px; }
+ .pull-instructions { top:612px; }
+ .pull-instructions strong { font-size:23px; }
+ .pull-instructions span { font-size:16px; }
+}
+@media(max-width:759px) {
+ .pull-instructions { left:20px; width:480px; top:612px; }
+}
+
+/* Center the fastening at the envelope seam and reserve its stretch corridor. */
+.cord-anchor { width:18px; height:8px; left:calc(50% - 9px); top:-4px; border-radius:4px; box-shadow:0 1px 3px #0008,inset 0 0 0 1px #ffecb1; }
+.pull-cord.dragging + .pull-instructions { opacity:0; }
+
+/* A satin ribbon tab replaces the bulky ring: one quiet central fastening. */
+.pull-cord { --rest-cord:22px; }
+.cord-anchor { top:-2px; height:4px; width:24px; left:calc(50% - 12px); border-radius:1px; background:#b99141; box-shadow:0 2px 4px #0005; }
+.cord-line { width:14px; left:calc(50% - 7px); border-radius:0; background:linear-gradient(90deg,#b48a3a,#f7e4ad 42%,#d5af60 75%,#bd9347); }
+.cord-handle { border:0; border-radius:5px 5px 12px 12px; background:linear-gradient(100deg,#c59c51,#f5dfa4 46%,#d8b872); color:#59401b; box-shadow:0 5px 12px #0005,inset 1px 0 #fff2c6,inset -1px 0 #9b712c; overflow:hidden; }
+.cord-handle::after { content:''; position:absolute; inset:5px; border:1px solid #916c2c44; border-radius:2px 2px 8px 8px; pointer-events:none; }
+.ribbon-fill { position:absolute; inset:0; background:#fff1be; transform-origin:top; opacity:.7; pointer-events:none; }
+.ribbon-symbol { position:relative; z-index:1; display:grid; place-items:center; }
+.ready .cord-handle { background:linear-gradient(100deg,#c59c51,#f5dfa4 46%,#d8b872); box-shadow:0 4px 18px #e9c47744; }
+.pull-instructions { top:712px; }
+.pull-instructions strong { font-size:18px; font-weight:400; letter-spacing:.25px; color:#e3cd99; }
+.pull-instructions span { font:italic 20px 'Cormorant Garamond',Georgia,serif; margin-top:8px; color:#a3b0cd; }
+@media(max-width:759px) {
+ .pull-cord { --rest-cord:18px; }
+ .pull-instructions { top:604px; left:20px; width:480px; }
+ .pull-instructions strong { font-size:20px; font-weight:400; }
+ .pull-instructions span { font-size:22px; margin-top:7px; }
+ .is-mobile .mobile-event-stamp { margin-top:-12px; }
+}
+
+/* Interwoven gold strands, suspended from the envelope's upper-right corner. */
+.pull-cord { left:915px; top:184px; --rest-cord:112px; }
+.cord-anchor { top:-5px; width:28px; height:12px; left:calc(50% - 14px); border-radius:7px; background:linear-gradient(#ffe4a0,#b0883e); box-shadow:0 2px 5px #0006,inset 0 0 0 2px #f6da91; }
+.cord-line { width:24px; left:calc(50% - 12px); background:none; border-radius:10px; filter:drop-shadow(2px 3px 2px #0006); }
+.cord-line svg { display:block; }
+.cord-handle { border-radius:45%; border:2px solid #eccf8a; background:linear-gradient(110deg,#aa7b30,#f4dda0 40%,#c59a48); box-shadow:0 4px 9px #0006,inset 0 0 0 3px #a97e36; }
+.cord-handle::after { border-radius:45%; }
+.ready .cord-handle { background:linear-gradient(110deg,#aa7b30,#fff0b7 40%,#dbb35e); }
+@media(max-width:759px) {
+ .pull-cord { left:452px; top:184px; --rest-cord:88px; }
+}
+
+/* Fine silk plait, wrapped knot and short fringe; the hit area stays 44px. */
+.pull-cord { left:916px; top:181px; --rest-cord:120px; }
+.cord-anchor { width:20px; height:7px; left:calc(50% - 10px); top:-3px; background:linear-gradient(90deg,#937142,#efdbad,#a98b55); border-radius:4px; box-shadow:0 2px 3px #0004; }
+.cord-line { width:24px; left:calc(50% - 12px); border-radius:8px; filter:drop-shadow(1px 2px 1px #0005); }
+.cord-handle,.ready .cord-handle { border:0; border-radius:10px; background:transparent; box-shadow:none; overflow:visible; }
+.cord-handle::after { display:none; }
+.braid-tassel { width:36px; height:76px; position:absolute; top:-3px; left:calc(50% - 18px); overflow:visible; filter:drop-shadow(1px 3px 2px #0005); transition:filter 200ms; pointer-events:none; }
+.braid-cue { position:absolute; left:calc(50% + 24px); top:24px; color:#dfc68e; opacity:.65; pointer-events:none; }
+.dragging .braid-cue,.ready .braid-cue { opacity:1; }
+.ready .braid-tassel { filter:drop-shadow(0 0 6px #f4d69099); }
+.cord-handle:focus-visible { outline:2px solid #f5dca1; outline-offset:5px; }
+@media(max-width:759px) {
+ .pull-cord { left:445px; top:182px; --rest-cord:100px; }
+ .cord-line { width:24px; }
+ .braid-tassel { width:40px; height:84px; left:calc(50% - 20px); }
+}
+.cord-handle { height:max(var(--handle-size),84px); }
+/* Pivot at the attachment point; stretch follows the two-dimensional drag. */
+.pull-cord { transform-origin:50% 0; transform:translateX(-50%) rotate(var(--cord-angle,0deg)); transition:transform 650ms cubic-bezier(.22,1.3,.45,1); }
+.pull-cord.dragging { transition:none; }
+.cord-line { transition:height 650ms cubic-bezier(.22,1.3,.45,1); }
+.cord-handle { transition:top 650ms cubic-bezier(.22,1.3,.45,1); }
+.pull-cord.dragging .cord-line,.pull-cord.dragging .cord-handle { transition:none; }
+.tilt-toggle { position:fixed; bottom:max(10px,env(safe-area-inset-bottom)); left:10px; z-index:12; min-height:44px; padding:8px 12px; border:1px solid #c9b88d44; border-radius:22px; color:#d8c99e; background:#050e31dd; font:11px 'Be Vietnam Pro',sans-serif; }
+.tilt-toggle[aria-pressed=true] { border-color:#d9b768; color:#f4d694; }
+@media(min-width:760px) { .tilt-toggle { display:none; } }
+
+/* The mounting stays fixed. Only the hanging assembly rotates. The same
+   braid artwork stretches, preserving its knot count instead of tiling more. */
+.pull-cord,.pull-cord.dragging { transform:translateX(-50%); transition:none; }
+.cord-anchor { z-index:3; width:28px; height:12px; left:calc(50% - 14px); top:-6px; }
+.cord-motion { position:absolute; top:0; left:0; width:100%; transform-origin:50% 0; transform:rotate(var(--cord-angle,0deg)); will-change:transform; }
+.pull-cord .cord-line { height:var(--rest-cord); transform-origin:50% 0; transform:scale(var(--stretch-x,1),var(--stretch-y,1)); transition:none; will-change:transform; border-radius:0; }
+.pull-cord .cord-handle { top:var(--rest-cord); transform:translateY(var(--pull,0px)); transition:none; will-change:transform; }
+.pull-cord.dragging .cord-handle { outline:none; }
+.cord-handle:focus:not(:focus-visible) { outline:none; }

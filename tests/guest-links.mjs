@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {createGuestLinks,getGuestName,normalizeGuestName} from '../lib/guest-links.ts';
+const links=createGuestLinks('https://example.com/tao-thiep?old=1#x',' Nguyễn Văn A \nChị Minh & Anh\nNguyễn Văn A\n');
+assert.equal(links.length,2);
+assert.equal(new URL(links[0].url).pathname,'/');
+assert.equal(getGuestName(new URL(links[1].url).search,'Bạn'),'Chị Minh & Anh');
+assert.equal(getGuestName('?guest=+++','Bạn'),'Bạn');
+assert.equal(new URL(links[0].url).searchParams.has('old'),false);
+assert.equal(normalizeGuestName(' Nguyễn   Văn A '),'Nguyễn Văn A');
+assert.equal(Array.from(normalizeGuestName('a'.repeat(90))).length,70);
+assert.throws(()=>createGuestLinks('javascript:alert(1)','A'));
+assert.throws(()=>createGuestLinks('https://user:pass@example.com','A'));
+console.log('Guest links: normalization, deduplication, encoding, fallback and URL validation passed');
