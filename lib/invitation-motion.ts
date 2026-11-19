@@ -1,4 +1,4 @@
-export type View = 0 | 1 | 2 | 3;
+export type View = 0 | 1 | 2 | 3 | 4;
 export type Phase = 'sealed' | 'flap' | 'extract' | 'settle' | 'reading';
 export type MotionState = { phase: Phase; view: View; busy: boolean };
 export type MotionAction = { type: 'GO_TO'; view: View } | { type: 'OPEN' | 'ADVANCE' | 'FINISH_TURN' | 'REPLAY' } | { type: 'NAVIGATE'; direction: -1 | 1; mobile: boolean };
@@ -19,7 +19,7 @@ export function motionReducer(state: MotionState, action: MotionAction): MotionS
     case 'FINISH_TURN': return state.phase === 'reading' ? { ...state, busy: false } : state;
     case 'NAVIGATE': {
       if (state.phase !== 'reading' || state.busy) return state;
-      const pages: View[] = action.mobile ? [0, 1, 2, 3] : [0, 1, 3];
+      const pages: View[] = action.mobile ? [0, 1, 2, 3, 4] : [0, 1, 3, 4];
       const current = !action.mobile && state.view === 2 ? 1 : state.view;
       const target = pages[pages.indexOf(current) + action.direction];
       return target === undefined ? state : { ...state, view: target, busy: true };

@@ -515,3 +515,21 @@ html { min-height:100%; background-color:#040e48; }
 .memory-invite>span{display:block;color:#e2c783;font-size:10px;letter-spacing:1.8px;}.memory-invite strong{display:block;margin:8px 0 14px;font-size:16px;color:#fff2d4;font-weight:500;}.memory-invite>div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}.memory-invite button{min-height:44px;padding:10px 14px;border-radius:22px;font:12px 'Be Vietnam Pro',sans-serif;}.memory-invite button:first-child{background:#ead18b;color:#102044;border:1px solid #ead18b;font-weight:600;}.memory-invite button:last-child{color:#f6dfaa;border:1px solid #d9bb7366;background:transparent;}
 .memory-wall{scroll-margin-top:24px;}
 @media(max-width:759px){.memory-wall{margin-top:16px;}.memory-wall header>p{font-size:14px;line-height:1.6;}.memory-wall h2{font-size:27px;}.memory-wall .memory-scatter:empty{display:none;}.memory-wall header>button{background:#ead18b;color:#102044;font-weight:600;min-height:48px;}}
+
+.invitation-site.memory-mode{flex-direction:column;justify-content:flex-start;overflow-y:visible;padding-top:65px;}
+.memory-mode>.scene-space{display:none;}
+.memory-chapter{position:relative;z-index:3;width:min(1060px,94vw);margin:0 auto;}
+.memory-chapter>.memory-wall{width:100%;margin:20px auto 30px;}
+.memory-chapter .memory-scatter{grid-template-columns:repeat(2,minmax(0,1fr));max-width:760px;margin:auto;}
+.memory-chapter-nav{display:flex;justify-content:center;align-items:center;gap:24px;margin:20px 0 30px;color:#f4d694;}.memory-chapter-nav button{border:1px solid #d8b971;border-radius:24px;padding:12px 20px;background:#142557;}
+@media(max-width:759px){
+ .invitation-site.is-mobile.memory-mode{padding-top:max(8px,env(safe-area-inset-top));}
+ .journey-tabs{grid-template-columns:repeat(5,minmax(0,1fr));}
+ .journey-tabs button{font-size:10px;}
+ .memory-chapter{width:calc(100% - 32px);}
+ .memory-chapter .memory-wall{margin:0 auto 15px;}
+ .memory-chapter .memory-wall h2{display:none;}
+ .memory-chapter .memory-scatter{grid-template-columns:1fr;padding:25px 24px;}
+}
+
+.music-retry{position:fixed;z-index:15;bottom:calc(62px + env(safe-area-inset-bottom));right:12px;border:1px solid #d8b971;border-radius:18px;padding:10px 14px;background:#142557;color:#ffe4a5;font-size:12px;}

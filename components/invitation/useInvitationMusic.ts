@@ -22,6 +22,7 @@ export function useInvitationMusic() {
     const media = new Audio();
     media.preload = 'none';
     media.loop = true;
+    media.setAttribute('playsinline', '');
     // A gain node also controls volume on iOS, where media.volume is ignored.
     const ctx = new AudioContext();
     const gain = ctx.createGain();
@@ -81,10 +82,20 @@ export function useInvitationMusic() {
   const visibility = () => {
    if (document.hidden) pause(); else if (wanted.current) void resume();
   };
+  // A touch drag does not reliably yield a click on iOS. Unlock from the
+  // native touchend too, and retry on later gestures if playback was blocked.
+  const activate = (event: Event) => {
+   if (!event.isTrusted || (event.target as HTMLElement)?.closest?.('.music-toggle')) return;
+   startOnOpen();
+  };
+  document.addEventListener('touchend', activate, {passive:true});
+  document.addEventListener('click', activate);
   document.addEventListener('visibilitychange', visibility);
   return () => {
    disposed.current = true;
    request.current++;
+   document.removeEventListener('touchend', activate);
+   document.removeEventListener('click', activate);
    document.removeEventListener('visibilitychange', visibility);
    const media = audio.current;
    if (media) {
