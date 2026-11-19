@@ -45,7 +45,7 @@ export default defineConfig(async ({ command }) => {
 
   return {
     server: {
-      allowedHosts: ["terminal.local", "7811-14-186-66-240.ngrok-free.app", "october-pretty-antarctica-have.trycloudflare.com"],
+      allowedHosts: ["terminal.local", "2cc8-14-186-78-68.ngrok-free.app", "october-pretty-antarctica-have.trycloudflare.com"],
       ...(managedLinux
         ? { host: "0.0.0.0" }
         : {}),

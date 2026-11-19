@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
+import { useId, useRef, useState, type CSSProperties } from 'react';
 import { useCordSpring } from './useCordSpring';
 import { ArrowDown, Check } from 'lucide-react';
 
@@ -9,36 +9,8 @@ export default function PullToOpen({scale,onOpen}:{scale:number;onOpen:()=>void}
  const [distance,setDistance]=useState(0);const [dragging,setDragging]=useState(false);
  const cordRef=useRef<HTMLDivElement>(null);
  const [vector,setVector]=useState({angle:0,stretch:0});
- const [tilt,setTilt]=useState(0);
- const [sensorOn,setSensorOn]=useState(false);
- const [sensorMessage,setSensorMessage]=useState('');
- const sensorZero=useRef<number|null>(null);
+ const tilt=0;
  const gesture=useRef<{id:number;x:number;y:number;distance:number;rest:number;angle:number}|null>(null);
- useEffect(()=>{
-   if(!sensorOn)return;
-   let last=0;
-   const orient=(event:DeviceOrientationEvent)=>{
-     if(document.hidden||event.gamma===null||event.beta===null)return;
-     const now=performance.now();if(now-last<40)return;last=now;
-     const angle=(screen.orientation?.angle??0)*Math.PI/180;
-     const lateral=event.gamma*Math.cos(angle)+event.beta*Math.sin(angle);
-     if(sensorZero.current===null)sensorZero.current=lateral;
-     setTilt(Math.max(-16,Math.min(16,-(lateral-sensorZero.current)*.45)));
-   };
-   const calibrate=()=>{sensorZero.current=null;setTilt(0);};
-   window.addEventListener('deviceorientation',orient);
-   window.addEventListener('orientationchange',calibrate);
-   return()=>{window.removeEventListener('deviceorientation',orient);window.removeEventListener('orientationchange',calibrate);};
- },[sensorOn]);
- async function toggleSensor(){
-   if(sensorOn){setSensorOn(false);setTilt(0);setSensorMessage('');return;}
-   const sensor=window.DeviceOrientationEvent as (typeof DeviceOrientationEvent & {requestPermission?:()=>Promise<string>})|undefined;
-   if(!window.isSecureContext||!sensor){setSensorMessage('Cảm biến cần trình duyệt hỗ trợ và link HTTPS. Bạn vẫn kéo dây được.');return;}
-   try{
-     if(sensor.requestPermission&&await sensor.requestPermission()!=='granted'){setSensorMessage('Chưa được cấp quyền nghiêng máy. Bạn vẫn kéo dây được.');return;}
-     sensorZero.current=null;setSensorOn(true);setSensorMessage('Giữ máy thẳng rồi nghiêng nhẹ để thử.');
-   }catch{setSensorMessage('Không bật được cảm biến. Bạn vẫn kéo dây được.');}
- }
  useCordSpring(cordRef,dragging?vector.angle:tilt,dragging?vector.stretch:0,dragging);
  const opened=useRef(false);
  const ready=distance>=PULL_DISTANCE;
@@ -74,5 +46,5 @@ export default function PullToOpen({scale,onOpen}:{scale:number;onOpen:()=>void}
     </svg>
     <span className="braid-cue" aria-hidden="true">{ready?<Check size={18}/>:<ArrowDown size={16}/>}</span>
   </button></div>
- </div><div className="pull-instructions" id="pull-instructions"><strong>{ready?'Thả tay để mở thư':dragging?'Kéo thêm một chút…':'Kéo dây tết ở góc phải để mở'}</strong><span>{sensorMessage||'Thử kéo dây sang một hướng bất kỳ'}</span></div><button className="tilt-toggle" onClick={toggleSensor} aria-pressed={sensorOn}>{sensorOn?'Tắt nghiêng máy':'Bật nghiêng máy'}</button><span className="sr-only" role="status">{ready?'Đã kéo đủ. Thả tay để mở thư.':''}</span></>;
+ </div><div className="pull-instructions" id="pull-instructions"><strong>{ready?'Thả tay để mở thư':dragging?'Kéo thêm một chút…':'Kéo dây tết ở góc phải để mở'}</strong><span>Thử kéo dây sang một hướng bất kỳ</span></div><span className="sr-only" role="status">{ready?'Đã kéo đủ. Thả tay để mở thư.':''}</span></>;
 }
