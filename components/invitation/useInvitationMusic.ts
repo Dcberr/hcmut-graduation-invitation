@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 
 const musicUrl = '/audio/vung-ky-uc.mp3';
 const backgroundVolume = 0.06;
-const preferenceKey = 'invitation-music-enabled';
 
 export function useInvitationMusic() {
  const [playing, setPlaying] = useState(false);
@@ -72,7 +71,6 @@ export function useInvitationMusic() {
  function toggle() {
   enabled.current = !wanted.current;
   wanted.current = enabled.current;
-  try { localStorage.setItem(preferenceKey, String(enabled.current)); } catch {}
   if (wanted.current) void resume(); else pause();
  }
  function startOnOpen() {
@@ -80,7 +78,6 @@ export function useInvitationMusic() {
  }
  useEffect(() => {
   disposed.current = false;
-  try { enabled.current = localStorage.getItem(preferenceKey) !== 'false'; } catch {}
   const visibility = () => {
    if (document.hidden) pause(); else if (wanted.current) void resume();
   };

@@ -174,6 +174,14 @@ Nếu build thủ công từ Mac Apple Silicon, phải dùng `docker buildx buil
 
 Nhạc nền “Vùng Ký Ức” từ file được cung cấp, lưu tại `public/audio/vung-ky-uc.mp3`.
 Âm lượng nền 6%, tăng nhẹ trong 0,8 giây khi bắt đầu. File chỉ tải sau tương tác, không chặn giao diện ban đầu.
-Bắt đầu sau thao tác mở thư hoặc nhấn nút nhạc; bật/tắt bằng nút loa. Lựa chọn tắt
-được nhớ trên trình duyệt. Chuyển trang không khởi động lại nhạc; ẩn tab sẽ tạm dừng.
+Bắt đầu sau thao tác mở thư hoặc nhấn nút nhạc; bật/tắt bằng nút loa. Mặc định bật mỗi lần truy cập; lựa chọn tắt chỉ áp dụng trong lần mở hiện tại. Chuyển trang không khởi động lại nhạc; ẩn tab sẽ tạm dừng.
 Đường dẫn nhạc và `backgroundVolume` được chỉnh trong `components/invitation/useInvitationMusic.ts`.
+
+### Góc kỷ niệm
+Trang cuối có lời chúc/ảnh dạng Polaroid. Khách gửi qua link `/invitation/<id>`;
+mỗi khách có một kỷ niệm, gửi lại sẽ thay thế. Nội dung hiển thị công khai cho người xem thiệp.
+Ảnh được thu nhỏ ở trình duyệt rồi mã hóa lại JPEG trên server (bỏ metadata),
+lưu cùng nội dung tại `GUEST_DATA_DIR/memories` trong volume hiện có.
+Hiển thị tối đa 100 bản ghi; chưa có giao diện kiểm duyệt/xóa. Sao lưu cả thư mục data.
+
+Khách có thể chọn tên hiển thị riêng hoặc gửi dưới tên “Một người bạn”. Ẩn danh chỉ ẩn tên công khai; link khách vẫn được dùng để xác định bản ghi cần cập nhật.

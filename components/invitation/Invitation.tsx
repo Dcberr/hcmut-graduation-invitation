@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState, type CSSProperties } from 'react';
 import { ChevronLeft, ChevronRight, RotateCcw, MapPin, Volume2, VolumeX } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import MemoryWall from './MemoryWall';
 import { Cover, PortraitPage, DetailsPage, ThankYou, Emblem } from './Pages';
 import { initialMotion, motionReducer, turnDuration, type View } from '@/lib/invitation-motion';
 import { invitation, getMapUrl } from '@/lib/invitation-config';
@@ -54,7 +55,7 @@ export default function Invitation({guestName}:{guestName?:string} = {}) {
  const chapters=['Lời mời','Dấu ấn','Hẹn gặp','Cảm ơn'];
  const chapterTitles=['Một lời mời dành riêng cho bạn','Những năm tháng đáng nhớ','Hẹn bạn ở ngày đặc biệt','Cảm ơn vì đã đồng hành'];
  const interactiveSpread=settledView===1||settledView===2;
- return <main className={`invitation-site ${size.mobile?'is-mobile':''} ${reading?'is-reading':'is-opening'} ${viewportReady?'viewport-ready':'viewport-pending'}`} style={{'--touch-target':`${44/size.scale}px`} as CSSProperties}>
+ return <main className={`invitation-site ${size.mobile?'is-mobile':''} ${reading?'is-reading':'is-opening'} ${viewportReady?'viewport-ready':'viewport-pending'}`} style={{'--touch-target':`${44/size.scale}px`,'--scene-height':`${800*size.scale}px`} as CSSProperties}>
  <CosmicBackground/>
  <button type="button" className="music-toggle" onClick={music.toggle} aria-pressed={music.playing} aria-label={music.playing?'Tắt nhạc nền':'Bật nhạc nền'} title={music.playing?'Tắt nhạc nền':'Bật nhạc nền'}>{music.playing?<Volume2 size={17}/>:<VolumeX size={17}/>}<span>Nhạc nền</span></button>
  <span className="sr-only" role="status">{music.message}</span>
@@ -71,9 +72,12 @@ export default function Invitation({guestName}:{guestName?:string} = {}) {
  {state.phase==='sealed'&&<PullToOpen scale={size.scale} onOpen={()=>{music.startOnOpen();dispatch({type:'OPEN'});}}/>}
  <nav className={`page-controls ${reading?'shown':''}`} inert={!reading} aria-label="Lật trang thiệp"><button aria-label="Trang trước" disabled={state.busy||state.view===0} onClick={()=>navigate(-1)}><ChevronLeft/></button><span>{spread&&!size.mobile?'02–03':`0${state.view+1}`} / 04</span><button aria-label="Trang tiếp theo" disabled={state.busy||state.view===3} onClick={()=>navigate(1)}><ChevronRight/></button></nav>
  {size.mobile&&reading&&<p className="swipe-hint">Vuốt sang trái hoặc phải để lật trang</p>}
- </div></div>
+ </div>
+ {!size.mobile&&reading&&state.view===3&&!state.busy&&<MemoryWall guest={guest}/>}
+ </div>
  {size.mobile&&viewportReady&&<footer className="mobile-journey">{reading?<><nav aria-label="Hành trình thiệp mời" className="journey-tabs">{chapters.map((chapter,index)=><button key={chapter} aria-label={`Trang ${index+1}: ${chapter}`} aria-current={state.view===index?'step':undefined} disabled={state.busy} onClick={()=>dispatch({type:'GO_TO',view:index as View})}><span>0{index+1}</span>{chapter}</button>)}</nav><div className="journey-actions"><button aria-label="Trang trước" disabled={state.busy||state.view===0} onClick={()=>navigate(-1)}><ChevronLeft/></button>{state.view<3?<button className="journey-next" disabled={state.busy} onClick={()=>navigate(1)}>{state.view===0?'Khám phá hành trình':state.view===1?'Thông tin buổi lễ':'Một lời cảm ơn'}<ChevronRight size={18}/></button>:<button className="journey-next" onClick={()=>setMap(true)}><MapPin size={18}/>Hẹn gặp tại buổi lễ</button>}</div><p className="journey-hint">Vuốt nhẹ để tiếp tục câu chuyện</p></>:<div className="mobile-event-stamp"><span>NGÀY ĐẶC BIỆT</span><strong>{invitation.ceremonyDate}</strong><p>{invitation.venue} · Bách khoa</p><small className="cosmic-hint">Chạm vào khoảng trời để thắp một vì sao ✦</small></div>}</footer>}
  {reading&&<button className="replay-button" disabled={state.busy} onClick={()=>{setTopLeaf('left');dispatch({type:'REPLAY'});}}><RotateCcw size={15}/> Xem lại từ đầu</button>}
+ {size.mobile&&reading&&state.view===3&&!state.busy&&<MemoryWall guest={guest}/>}
  <Dialog open={map} onOpenChange={setMap}><DialogContent className="map-dialog"><DialogTitle>Hẹn gặp bạn tại {invitation.venue}</DialogTitle><DialogDescription>Trường Đại học Bách khoa · Thành phố Hồ Chí Minh</DialogDescription><div className="map-illustration"><MapPin size={64}/></div><p>Bản đồ sẽ mở kết quả tìm kiếm địa điểm. Vị trí ghim chính xác sẽ được cập nhật cùng thông tin buổi lễ.</p><a className="map-link" href={getMapUrl()} target="_blank" rel="noopener noreferrer">Mở Google Maps ↗</a></DialogContent></Dialog>
  <Dialog open={parking} onOpenChange={setParking}><DialogContent className="parking-dialog"><ParkingGuide/></DialogContent></Dialog>
  </main>;
