@@ -4,10 +4,15 @@ services:
       context: .
       dockerfile: Dockerfile
     image: hcmut-invitation:local
+    environment:
+      INVITATION_ADMIN_TOKEN: ${INVITATION_ADMIN_TOKEN:-}
+      GUEST_DATA_DIR: /app/data
     init: true
     restart: unless-stopped
     ports:
       - "127.0.0.1:${APP_PORT:-8080}:8080"
+    volumes:
+      - guest-data:/app/data
     healthcheck:
       test:
         - CMD
@@ -24,3 +29,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+volumes:
+  guest-data:

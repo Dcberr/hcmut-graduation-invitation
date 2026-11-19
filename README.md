@@ -27,11 +27,51 @@ Thiệp căn theo chiều rộng, cho phép cuộn dọc trên màn hình thấp
 
 ## Tạo thiệp cho nhiều khách mời
 
-Mở `/tao-thiep` trên website. Kiểm tra địa chỉ website, nhập mỗi khách một dòng, nhấn **Tạo link mời**. Sao chép từng link hoặc tất cả, rồi gửi cho khách. Dùng URL công khai (ngrok/tên miền), không gửi localhost. Nếu link ngrok thay đổi, tạo lại các link.
+Mở `/tao-thiep`, nhập khóa quản trị và tên khách (mỗi dòng một tên), chọn
+**Lưu và lấy link**. Mỗi khách có link `/invitation/<mã-ngẫu-nhiên>`; cùng tên đã chuẩn hóa
+sẽ dùng lại mã cũ. Chọn **Xem khách đã lưu** để lấy lại danh sách sau khi refresh.
+Link cũ `/moi/<mã>` tự chuyển hướng sang `/invitation/<mã>` và giữ nguyên mã khách.
+Tên khách không còn nằm trong URL. Các link cũ `?guest=...` vẫn dùng được.
 
-Thông tin người tốt nghiệp dùng chung. Tên khách được truyền trong `?guest=...`; link không có tên dùng `guestName` trong cấu hình (mặc định “Bạn”). Danh sách chỉ được xử lý trong trình duyệt, không có cơ sở dữ liệu hoặc đăng nhập. Tên khách hiện trong URL và có thể chỉnh sửa; link không phải cơ chế xác thực.
+Danh sách được tra cứu trong RAM và ghi snapshot JSON nguyên tử vào `data/guests.json`.
+Đây là kho dữ liệu nhỏ cho **một tiến trình / một container**, không phải database
+phân tán: không scale nhiều replica cùng ghi file. Giới hạn 5.000 khách.
+File lỗi sẽ báo lỗi thay vì tự xóa/ghi đè. Docker volume `guest-data` giữ dữ liệu
+qua restart và cập nhật image; không chạy `docker compose down -v` nếu muốn giữ link.
+Giữ nguyên tên Compose project khi triển khai để dùng đúng volume cũ.
 
-Kiểm tra: `node --experimental-strip-types tests/guest-links.mjs`.
+Cấu hình trên server trong `.env.production`:
+
+```sh
+openssl rand -hex 32
+# Dán chuỗi vừa tạo vào INVITATION_ADMIN_TOKEN trong .env.production.
+# Không đưa khóa này vào Git hoặc gửi cho khách.
+```
+
+Sau khi cập nhật image và Compose:
+
+```sh
+docker compose --env-file .env.production -f compose.production.yaml pull
+docker compose --env-file .env.production -f compose.production.yaml up -d --no-build
+```
+
+API tạo và liệt kê khách yêu cầu khóa quản trị tối thiểu 24 ký tự. Không có khóa
+thì API quản trị bị vô hiệu hóa; người có link cũ vẫn xem thiệp được.
+Khóa chỉ ở bộ nhớ trang quản trị, không được lưu localStorage hay đưa vào URL.
+Mã link không phải mật khẩu: bất kỳ ai có link đều xem được tên khách tương ứng.
+Mã sai trả trang không tìm thấy, không tự hiện tên mặc định. Trang theo mã không cache
+chung và không được lập chỉ mục tìm kiếm.
+
+Chạy local chức năng lưu khách bằng Node: đặt `INVITATION_ADMIN_TOKEN` trong
+`.env.local`, chạy `npm run dev` (dừng dev cũ dùng cổng 5173 trước).
+Luồng Vinext/Cloudflare dev cũ không hỗ trợ kho file Node này.
+
+Backup: sao chép `/app/data/guests.json` từ container, ví dụ
+`docker cp <container-name>:/app/data/guests.json ./guests-backup.json`.
+Giữ backup riêng tư vì chứa tên khách. Khi khôi phục, dừng app, chép lại vào đúng
+volume và đảm bảo user Node (UID 1000) có quyền đọc/ghi trước khi bật app.
+
+Kiểm tra: `node --experimental-strip-types tests/guest-store.mjs`.
 
 ### Mở bằng dây niêm phong
 
@@ -63,13 +103,13 @@ APP_PORT=3000 docker compose up -d --build
 
 Sau khi sửa nội dung, ảnh hoặc code, chạy lại `docker compose up -d --build`.
 Source code không được mount vào container; phiên bản đang chạy là bản đã build.
-Dừng app bằng `docker compose down`. App hiện không cần database hoặc volume dữ liệu.
+Dừng app bằng `docker compose down`. Danh sách khách được giữ trong volume `guest-data`.
 
 Image dùng Node 24 trên Debian, build nhiều giai đoạn và chạy bằng user `node`.
 Docker dùng `npm run build:docker` (Next.js standalone) và `node server.js`.
 Container không dùng Cloudflare, Wrangler, workerd hay Vite dev server.
 Chỉ các file runtime cần thiết, static assets và thư mục public được đưa vào image cuối.
-Luồng `npm run dev` hiện tại vẫn giữ nguyên để không ảnh hưởng phiên phát triển đang chạy.
+`npm run dev` chạy Next.js Node để hỗ trợ lưu khách trong file.
 Healthcheck kiểm tra HTTP mỗi 30 giây; `restart: unless-stopped` khởi động lại
 khi tiến trình thoát, không tự restart chỉ vì healthcheck báo unhealthy.
 
@@ -129,3 +169,11 @@ Không chạy `up --build` hoặc `npm install` trên Droplet này.
 
 Nếu build thủ công từ Mac Apple Silicon, phải dùng `docker buildx build
 --platform linux/amd64 --tag <image> --push .` để tạo image chạy được trên Droplet.
+
+### Nhạc nền
+
+Nhạc nền “Vùng Ký Ức” từ file được cung cấp, lưu tại `public/audio/vung-ky-uc.mp3`.
+Âm lượng nền 6%, tăng nhẹ trong 0,8 giây khi bắt đầu. File chỉ tải sau tương tác, không chặn giao diện ban đầu.
+Bắt đầu sau thao tác mở thư hoặc nhấn nút nhạc; bật/tắt bằng nút loa. Lựa chọn tắt
+được nhớ trên trình duyệt. Chuyển trang không khởi động lại nhạc; ẩn tab sẽ tạm dừng.
+Đường dẫn nhạc và `backgroundVolume` được chỉnh trong `components/invitation/useInvitationMusic.ts`.
