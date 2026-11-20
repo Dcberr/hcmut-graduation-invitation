@@ -533,3 +533,14 @@ html { min-height:100%; background-color:#040e48; }
 }
 
 .music-retry{position:fixed;z-index:15;bottom:calc(62px + env(safe-area-inset-bottom));right:12px;border:1px solid #d8b971;border-radius:18px;padding:10px 14px;background:#142557;color:#ffe4a5;font-size:12px;}
+
+@media(min-width:760px){
+ .memory-chapter{width:min(1400px,94vw);}
+ .memory-chapter .memory-scatter{display:block;columns:3;column-gap:36px;max-width:none;padding:35px 25px;}
+ .memory-chapter .memory-polaroid{display:inline-block;break-inside:avoid;width:100%;max-width:none;margin:10px 0 32px;}
+ .memory-chapter .memory-polaroid img{aspect-ratio:auto;max-height:380px;object-fit:contain;}
+}
+@media(min-width:760px) and (max-width:1050px){.memory-chapter .memory-scatter{columns:2;}}
+.memory-load-more{margin:12px auto 25px;}
+
+.memory-tabs{display:flex;justify-content:center;gap:10px;margin:24px auto 10px;flex-wrap:wrap;}.memory-tabs button[aria-pressed=true]{background:#ead18b;color:#102044;}.memory-owner-hint{max-width:560px;margin:12px auto!important;font-size:12px;line-height:1.6;color:#bbc8df;}.memory-manage{display:flex;justify-content:center;gap:10px;margin-top:18px;}.memory-polaroid .memory-manage button{border-color:#87714c;background:transparent;color:#544329;border-radius:8px;min-height:44px;padding:8px 18px;}

@@ -1,21 +1,20 @@
-import { mkdir, readFile, readdir, writeFile, rename } from 'node:fs/promises';
-import { join } from 'node:path';
-import { randomUUID } from 'node:crypto';
+import { memoryStore } from '@/lib/memory-store';
 import sharp from 'sharp';
 import { guestStore } from '@/lib/guest-store';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
-const dir=join(process.env.GUEST_DATA_DIR||join(process.cwd(),'data'),'memories');
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
-export async function GET(){
+export async function GET(request:Request){
  try{
-  const files=await readdir(dir).catch((e)=>{if(e.code==='ENOENT')return [];throw e;});
-  const memories=[];
-  for(const file of files.filter(f=>/^[a-f0-9]{24}\.json$/.test(f)).slice(-100))memories.push(JSON.parse(await readFile(join(dir,file),'utf8')));
-  return json({memories:memories.sort((a,b)=>b.createdAt.localeCompare(a.createdAt))});
+  const offset=Number(new URL(request.url).searchParams.get('offset')||0);
+  if(!Number.isSafeInteger(offset)||offset<0)return json({error:'Trang không hợp lệ.'},400);
+  const mine=new URL(request.url).searchParams.get('mine')==='1';
+  const guestId=request.headers.get('x-invitation-id')||'';
+  if(mine&&!await guestStore.get(guestId))return json({error:'Mở link thiệp riêng để quản lý kỷ niệm.'},403);
+  return json(await memoryStore.list(offset,24,mine?guestId:undefined));
  }catch{return json({error:'Chưa tải được kỷ niệm. Hãy thử lại.'},500);}
 }
-export async function POST(request:Request){
+async function mutate(request:Request){
  if(request.headers.get('origin')&&request.headers.get('origin')!==new URL(request.url).origin&&new URL(request.headers.get('origin')!).host!==request.headers.get('host'))return json({error:'Yêu cầu không hợp lệ.'},403);
  try{
   const reader=request.body?.getReader();if(!reader)return json({error:'Thiếu nội dung.'},400);
@@ -24,6 +23,11 @@ export async function POST(request:Request){
   const body=JSON.parse(Buffer.concat(chunks).toString());
   const guest=typeof body.guestId==='string'?await guestStore.get(body.guestId):undefined;
   if(!guest)return json({error:'Hãy mở đường link thiệp riêng của bạn để gửi kỷ niệm.'},403);
+  if(request.method!=='POST'&&(typeof body.id!=='string'||body.id.length>80))return json({error:'Kỷ niệm không hợp lệ.'},400);
+  if(request.method==='DELETE'){
+   const removed=await memoryStore.update(body.id,guest.id,null);
+   return removed?json({ok:true}):json({error:'Không tìm thấy kỷ niệm thuộc về bạn.'},404);
+  }
   if(body.anonymous!==undefined&&typeof body.anonymous!=='boolean')return json({error:'Lựa chọn ẩn danh không hợp lệ.'},400);
   if(body.displayName!==undefined&&(typeof body.displayName!=='string'||body.displayName.trim().length>70))return json({error:'Tên hiển thị tối đa 70 ký tự.'},400);
   const name=body.anonymous?'Một người bạn':(body.displayName?.trim()||guest.name);
@@ -35,11 +39,13 @@ export async function POST(request:Request){
    const output=await sharp(Buffer.from(body.image.split(',')[1],'base64'),{limitInputPixels:20000000}).rotate().resize(640,640,{fit:'inside',withoutEnlargement:true}).jpeg({quality:70}).toBuffer();
    image='data:image/jpeg;base64,'+output.toString('base64');
   }
-  const memory={id:randomUUID(),name,note,image,createdAt:new Date().toISOString()};
-  await mkdir(dir,{recursive:true});
-  const temp=join(dir,`${randomUUID()}.tmp`);
-  await writeFile(temp,JSON.stringify(memory),{mode:0o600,flush:true});
-  await rename(temp,join(dir,guest.id+'.json'));
+  const input={name,note,image,anonymous:body.anonymous===true};
+  const memory=request.method==='PATCH'?await memoryStore.update(body.id,guest.id,input):await memoryStore.add(input,guest.id);
+  if(!memory)return json({error:'Không tìm thấy kỷ niệm thuộc về bạn.'},404);
   return json({memory});
  }catch{return json({error:'Không lưu được kỷ niệm. Hãy kiểm tra ảnh và thử lại.'},400);}
 }
+
+export const POST=mutate;
+export const PATCH=mutate;
+export const DELETE=mutate;
